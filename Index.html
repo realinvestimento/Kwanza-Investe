@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwanza Investe | Transforme seu dinheiro</title>
+    <style>
+        :root {
+            --primary: #0055a4;
+            --secondary: #ffcc00;
+            --accent: #00a651;
+            --dark: #111827;
+            --light: #f3f4f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 1rem;
+            color: white;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.5rem 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            background: url('/api/placeholder/1200/600') center/cover;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .primary-btn {
+            background-color: var(--secondary);
+            color: var(--dark);
+            border: 2px solid var(--secondary);
+        }
+        
+        .primary-btn:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .secondary-btn:hover {
+            background-color: white;
+            color: var(--dark);
+        }
+        
+        section {
+            padding: 5rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .plan-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding-top: 10px;
+            padding-right: 10px;
+        }
+        
+        .plan-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .testimonials {
+            background-color: var(--light);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 5rem;
+            color: rgba(0, 85, 164, 0.1);
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+            color: var(--primary);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .profit-display {
+            background-color: var(--accent);
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 0.3rem 0.5rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .stats {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .referral {
+            background-color: white;
+        }
+        
+        .referral-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .referral-img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        
+        .referral-steps {
+            list-style: none;
+        }
+        
+        .referral-steps li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background-color: var(--accent);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .cta {
+            text-align: center;
+            background: url('/api/placeholder/1200/400') center/cover;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+        
+        .cta::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <img src="/api/placeholder/50/50" alt="Kwanza Investe Logo"> Kwanza Investe
+            </a>
+            <div class="nav-links">
+                <a href="#planos">Planos</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#referral">Indicações</a>
+                <a href="#contato">Contato</a>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Transforme seu dinheiro com o Kwanza Investe</h1>
+            <p>Transforme 100 kz em 1000 kz em poucos dias! Ganhos passivos enquanto você dorme!</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-btn primary-btn">Comece Agora</a>
+                <a href="#planos" class="cta-btn secondary-btn">Ver Planos</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Por que escolher o Kwanza Investe?</h2>
+                <p>A melhor plataforma de investimento em Angola</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Retornos Garantidos</h3>
+                    <p>Ganhe até 20% de juros diários em seus investimentos sem riscos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Crescimento Rápido</h3>
+                    <p>Veja seu dinheiro crescer em tempo real com nossa tecnologia avançada.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Segurança Total</h3>
+                    <p>Sua segurança é nossa prioridade. Investimentos 100% protegidos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Indicação Premiada</h3>
+                    <p>Ganhe 20% sobre o investimento de cada pessoa que você indicar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="planos" class="plans-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos Planos de Investimento</h2>
+                <p>Escolha o plano ideal para começar sua jornada rumo à liberdade financeira</p>
+            </div>
+            <div class="plans">
+                <div class="plan-card">
+                    <h3>Plano Bronze</h3>
+                    <div class="plan-price">7.000 KZ <span>/ 60 dias</span></div>
+                    <ul class="plan-features">
+                        <li>Rendimento de 20% ao dia</li>
+                        <li>Ganhe 1.400 KZ diariamente</li>
+                        <li>Total: 84.000 KZ em 60 dias</li>
+                        <li>Saque mínimo: 5.000 KZ</li>
+                        <li>Suporte básico</li>
+                    </ul>
+                    <a href="#" class="cta-btn primary-btn">Investir Agora</a>
+                </div>
+                <div class="plan-card">
+                    <div class="plan-badge">Popular</div>
+                    <h3>Plano Prata</h3>
+                    <div class="plan-price">14.000 KZ <span>/ 60 dias</span></div>
+                    <ul class="plan-features">
+                        <li>Rendimento de 20% ao dia</li>
+                        <li>Ganhe 2.800 KZ diariamente</li>
+                        <li>Total: 168.000 KZ em 60 dias</li>
+                        <li>Saque mínimo: 10.000 KZ</li>
+                        <li>Suporte prioritário</li>
+                    </ul>
+                    <a href="#" class="cta-btn primary-btn">Investir Agora</a>
+                </div>
+                <div class="plan-card">
+                    <h3>Plano Ouro</h3>
+                    <div class="plan-price">28.000 KZ <span>/ 60 dias</span></div>
+                    <ul class="plan-features">
+                        <li>Rendimento de 20% ao dia</li>
+                        <li>Ganhe 5.600 KZ diariamente</li>
+                        <li>Total: 336.000 KZ em 60 dias</li>
+                        <li>Saque mínimo: 15.000 KZ</li>
+                        <li>Suporte VIP</li>
+                    </ul>
+                    <a href="#" class="cta-btn primary-btn">Investir Agora</a>
+                </div>
+                <div class="plan-card">
+                    <div class="plan-badge">Premium</div>
+                    <h3>Plano Diamante</h3>
+                    <div class="plan-price">56.000 KZ <span>/ 60 dias</span></div>
+                    <ul class="plan-features">
+                        <li>Rendimento de 20% ao dia</li>
+                        <li>Ganhe 11.200 KZ diariamente</li>
+                        <li>Total: 672.000 KZ em 60 dias</li>
+                        <li>Saque mínimo: 20.000 KZ</li>
+                        <li>Consultoria financeira exclusiva</li>
+                    </ul>
+                    <a href="#" class="cta-btn primary-btn">Investir Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="depoimentos" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O que dizem nossos investidores</h2>
+                <p>Histórias reais de pessoas que transformaram suas vidas com o Kwanza Investe</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Comecei com o plano Bronze há apenas 2 meses e já consegui comprar meu primeiro carro! Nunca imaginei que seria possível ganhar tanto dinheiro em tão pouco tempo. O Kwanza Investe mudou minha vida!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="Foto de João" class="author-avatar">
+                        <div class="author-info">
+                            <h4>João Pedro</h4>
+                            <p>Luanda, Angola</p>
+                            <div class="profit-display">+620.000 KZ</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Eu estava cética no início, mas depois que vi o dinheiro entrando na minha conta todos os dias, não tive mais dúvidas! Agora tenho minha própria rede de indicados e ganho enquanto durmo. Obrigada Kwanza Investe!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="Foto de Maria" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Maria Silva</h4>
+                            <p>Benguela, Angola</p>
+                            <div class="profit-display">+1.245.000 KZ</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Comecei com apenas 7.000 KZ no plano Bronze e em 60 dias reinvesti no plano Diamante. Hoje tenho uma rede de mais de 200 pessoas e ganho mais de 100.000 KZ por dia só com indicações!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="Foto de Carlos" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Carlos Eduardo</h4>
+                            <p>Lubango, Angola</p>
+                            <div class="profit-display">+3.780.000 KZ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>25.000+</h3>
+                    <p>Investidores Ativos</p>
+                </div>
+                <div class="stat-item">
+                    <h3>99,8%</h3>
+                    <p>Taxa de Satisfação</p>
+                </div>
+                <div class="stat-item">
+                    <h3>800M+</h3>
+                    <p>KZ Pagos aos Investidores</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2 Anos</h3>
+                    <p>De Sucesso no Mercado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>Como Funciona</h2>
+                <p>Simples, rápido e seguro</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">1️⃣</div>
+                    <h3>Cadastre-se</h3>
+                    <p>Crie sua conta gratuitamente em menos de 2 minutos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">2️⃣</div>
+                    <h3>Escolha um Plano</h3>
+                    <p>Selecione o plano que melhor se adapta aos seus objetivos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">3️⃣</div>
+                    <h3>Faça seu Depósito</h3>
+                    <p>Transferência rápida via Express ou depósito direto.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">4️⃣</div>
+                    <h3>Comece a Ganhar</h3>
+                    <p>Veja seu dinheiro crescer todos os dias e saque quando quiser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="referral" class="referral">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sistema de Indicação</h2>
+                <p>Construa sua rede e multiplique seus ganhos</p>
+            </div>
+            <div class="referral-info">
+                <div>
+                    <img src="/api/placeholder/500/300" alt="Sistema de Indicação" class="referral-img">
+                </div>
+                <div>
+                    <h3>Como Funciona o Sistema de Indicação?</h3>
+                    <p>Nosso sistema de indicação em camadas permite que você ganhe não apenas com seus investimentos, mas também construindo uma rede de investidores abaixo de você.</p>
+                    <ul class="referral-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Convide Amigos</h4>
+                                <p>Compartilhe seu código de indicação com amigos e familiares.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Ganhe Comissões</h4>
+                                <p>Receba 20% do valor investido por cada pessoa que usar seu código.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Construa sua Rede</h4>
+                                <p>Seus indicados também podem indicar outras pessoas, e você ganha em várias camadas!</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="cta-btn primary-btn">Comece a Indicar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>A hora é agora! Mude sua vida hoje!</h2>
+                <p>Não perca mais tempo vendo os outros conquistarem a liberdade financeira. Junte-se a milhares de angolanos que estão transformando suas vidas com o Kwanza Investe.</p>
+                <a href="#" class="cta-btn primary-btn">Comece com apenas 7.000 KZ</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contato">
+        <div class="footer-content">
+            <div class="footer-about">
+                <a href="#" class="footer-logo">Kwanza Investe</a>
+                <p>A plataforma de investimentos número 1 de Angola. Transformando vidas desde 2023.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">FB</a>
+                    <a href="#" class="social-link">IG</a>
+                    <a href="#" class="social-link">TW</a>
+                    <a href="#" class="social-link">WA</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Planos</h3>
+                <ul>
+                    <li><a href="#">Plano Bronze</a></li>
+                    <li><a href="#">Plano Prata</a></li>
+                    <li><a href="#">Plano Ouro</a></li>
+                    <li><a href="#">Plano Diamante</a></li>
+                </ul>
+            </div>
